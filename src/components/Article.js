@@ -15,7 +15,7 @@ class Article extends Component {
         if (!article) return <h3>No article</h3>;
         const body = isOpen ? <section>{article.text}</section> : null;
         const comments = article.comments ? <CommentList comments={article.comments} /> : null;
-
+        
         return (
             <div>
                 <h3 onClick = {this.toggleOpen}>{article.title}</h3>
@@ -30,7 +30,7 @@ class Article extends Component {
             isOpen: !this.state.isOpen
         })
     };
-
+    
 }
 
 

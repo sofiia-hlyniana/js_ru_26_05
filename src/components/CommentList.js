@@ -11,7 +11,7 @@ class CommentList extends Component {
   render() {
     const { comments } = this.props;
     const { areCommentsOpen } = this.state;
-    const buttonText = areCommentsOpen ? 'Hide' : 'Show';
+    const buttonText = areCommentsOpen ? 'Hide Comments' : 'Show Comments';
     const commentsData = comments.map((comment) => <Comment key={`comment-${comment.id}`} name={comment.name}
                                                            text={comment.text} title={comment.title}/>);
     const commentsList = areCommentsOpen ? commentsData : null;
@@ -25,7 +25,6 @@ class CommentList extends Component {
   }
 
   toggleComments = (ev) => {
-
     this.setState({
       areCommentsOpen: !this.state.areCommentsOpen
     });
