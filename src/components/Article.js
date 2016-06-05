@@ -3,31 +3,20 @@ import CommentList from './CommentList';
 
 class Article extends Component {
 
-	state = {
-		isOpen: false
-	};
-
 	render() {
-		const { article } = this.props;
-		const { isOpen } = this.state;
+		const { article, openArticle } = this.props;
 		if (!this.props.article) return <h3>No article</h3>;
 		return (
 			<div>
-				<h3 onClick={this.toggleOpen}>{article.title}</h3>
+				<h3 onClick={openArticle}>{article.title}</h3>
 				{this.getArticleBody()}
 			</div>
 		)
 	}
 
-	toggleOpen = (ev) => {
-		this.setState({
-			isOpen: !this.state.isOpen
-		})
-	};
-
 	getArticleBody() {
-		const { article } = this.props;
-		if (!this.state.isOpen) return null;
+		const { article, isOpen } = this.props;
+		if (!isOpen) return null;
 		return (
 			<section>
 				{article.text}
@@ -44,6 +33,8 @@ Article.propTypes = {
 		id: PropTypes.string.isRequired,
 		comments: PropTypes.array
 	}),
+	isOpen: PropTypes.bool,
+	openArticle: PropTypes.func,
 	options: PropTypes.object
 };
 
