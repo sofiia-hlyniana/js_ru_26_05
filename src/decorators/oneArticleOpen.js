@@ -4,7 +4,7 @@ export default (CustomComponent) => class OneArticleOpen extends Component {
 
 	constructor(props) {
 		super();
-
+		//хорошо, но не привязывайтесь к Article - декораторы пишуться что б использовать с разными сущностями
 		this.state = {
 			openedArticle: null
 		};
