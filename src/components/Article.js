@@ -3,59 +3,48 @@ import CommentList from './CommentList';
 
 class Article extends Component {
 
-    state = {
-        isOpen: false
-    };
+	state = {
+		isOpen: false
+	};
 
-    render() {
-        const { article } = this.props;
+	render() {
+		const { article } = this.props;
+		const { isOpen } = this.state;
+		if (!this.props.article) return <h3>No article</h3>;
+		return (
+			<div>
+				<h3 onClick={this.toggleOpen}>{article.title}</h3>
+				{this.getArticleBody()}
+			</div>
+		)
+	}
 
-        const { isOpen } = this.state;
+	toggleOpen = (ev) => {
+		this.setState({
+			isOpen: !this.state.isOpen
+		})
+	};
 
-        if (!article) return <h3>No article</h3>;
-        const body = isOpen ? <section>{article.text}</section> : null;
-        const comments = article.comments ? <CommentList comments={article.comments} /> : null;
-        
-        return (
-            <div>
-                <h3 onClick = {this.toggleOpen}>{article.title}</h3>
-                {body}
-                {comments}
-            </div>
-        )
-    }
-
-    toggleOpen = (ev) => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    };
-    
+	getArticleBody() {
+		const { article } = this.props;
+		if (!this.state.isOpen) return null;
+		return (
+			<section>
+				{article.text}
+				<CommentList comments={article.comments}/>
+			</section>
+		)
+	}
 }
-
-
-
-/*
-function Article(props) {
-    const { article } = props
-    if (!article) return <h3>No article</h3>
-    return (
-        <div>
-            <h3>{article.title}</h3>
-            <section>{article.text}</section>
-        </div>
-    )
-}
-*/
 
 Article.propTypes = {
-    article: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        text: PropTypes.string,
-        id: PropTypes.string.isRequired,
-        comments: PropTypes.array
-    }),
-    options: PropTypes.object
-}
+	article: PropTypes.shape({
+		title: PropTypes.string.isRequired,
+		text: PropTypes.string,
+		id: PropTypes.string.isRequired,
+		comments: PropTypes.array
+	}),
+	options: PropTypes.object
+};
 
-export default Article
+export default Article;
