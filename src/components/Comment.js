@@ -1,25 +1,14 @@
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes } from 'react'
 
-function Comment (props) {
-
-    const { id, name, text, title } = props;
-    const commentTitle = title ? <h5>{title}</h5> : null;
-    const commentName = name ? <h4>{name}</h4> : null;
+function Comment(props) {
+    const {comment: { text, name }} = props
     return (
-        <div id={id}>
-          {commentName}
-          {commentTitle}
-          <div>{text}</div>
-        </div>
-    );
+        <div>{text} <b>by {name}</b></div>
+    )
 }
 
-Comment.PropTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  text: PropTypes.string.isRequired,
-  title: PropTypes.string
-};
+Comment.propTypes = {
+    comment: PropTypes.object.isRequired
+}
 
 export default Comment;
-
