@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
-//import { loadCommentsForArticle } from '../AC/comments'
-import { getRelation } from '../store/utils'
+import { loadCommentsForArticle } from '../AC/comments'
+import {connect} from 'react-redux'
+//import { getRelation } from '../store/utils'
 
 class CommentList extends Component {
     static defaultProps = {
@@ -42,15 +43,17 @@ class CommentList extends Component {
      */
 
     getToggler() {
-        const { isOpen, toggleOpen } = this.props
+        const { isOpen, loadCommentsForArticle, article } = this.props
         const text = isOpen ? 'hide comments' : 'show comments'
-        return <a href = "#" onClick = {toggleOpen}>{text}</a>
+        return <a href = "#" onClick = {this.showComments}>{text}</a>
     }
 
+
     getList() {
-        const { article, isOpen } = this.props
+        const { article, isOpen, comments } = this.props
         if (!isOpen) return null
-        const comments = getRelation(article, 'comments')
+
+        //const comments = getRelation(article, 'comments')
         if (!comments || !comments.length) return <h3>No comments yet</h3>
         if (comments.includes(undefined)) return <h3>Loading comments...</h3>
         const items = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
@@ -61,4 +64,4 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+export default connect(null, {loadCommentsForArticle})(toggleOpen(CommentList))
